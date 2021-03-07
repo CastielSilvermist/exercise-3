@@ -1,38 +1,46 @@
-function Quote(quoteText, author, tags, color) {
-	this.quote = quoteText;
-	this.author = author;
+	function gameImg(title, url, tags) {
+	this.title = title;
+	this.url = "imgs/" + url;
 	this.tags = tags;
-	this.color = color;
 	this.display = function() {
 
 		var container = $("<div>")
 		this.tags.forEach(function(tag){
 			container.addClass(tag);
 		})
-		container.css("background", this.color)
-		container.addClass("quote")
-
-		var quoteString = "";
-		//use image tag instead of paragraph
-		quoteString += "<p>" + this.quote + "</p>";
-		quoteString += "<cite>" + this.author + "</cite>";
 	
-		container.html(quoteString)
-		$(".quotes").prepend(container)
+		container.addClass("gameshot")
+
+		var gameString = "";
+		//use image tag instead of paragraph
+		gameString += "<p>" + this.title + "</p>";
+		gameString += "<img src='" + this.url + "</img>";
+	
+		container.html(gameString)
+		$(".gallery").prepend(container)
 	}
 }
-//imgs use URL. so how to add url to this
-var quotes = [
-	new Quote('"We don\'t make mistakes, just happy little accidents."',"Bob Ross",["painting", "mistakes"],"#0a3410"),
-	new Quote('"Creativity takes courage"',"- Henry Matisse", ["painting", "creativity"], "lightblue")
+
+var gallery = [
+	new gameImg("Castiel - Guild Wars 2", "cas.jpg'>", ["Characters", "All"]),
+	new gameImg("Castiel Silvermist - Elder Scrolls Online", "castiel.png'>", ["Characters", "All"]),
+	new gameImg("Valokilorian - Elder Scrolls Online", "valokilorian.png'>", ["Characters", "All"]),
+	new gameImg("Valokilorian - Guild Wars 2", "valo.jpg'>", ["Characters", "All"]),
+	new gameImg("Cyrodiil", "cyrodiil.png'>", ["ESO", "Landscape", "All"]),
+	new gameImg("Elsweyr", "elsweyr.png'>", ["ESO", "Landscape", "All"]),
+	new gameImg("Summerset", "summerset.png'>", ["ESO", "Landscape", "All"]),
+	new gameImg("Divinity\'s Reach", "divinitysreach.jpg'>", ["GW2", "Landscape", "All"]),
+	new gameImg("Lion\'s Arch", "lionsarch.jpg'>", ["GW2", "Landscape", "All"]),
+	new gameImg("Metrica", "metrica.jpg'>", ["GW2", "Landscape", "All"])
 ]
 
 //global taglist
 var tagList = []
 
-quotes.forEach(function(quote){
-	quote.display();
-	quote.tags.forEach(function(tag){
+gallery.forEach(function(gameshot){
+	console.log("photos should display");
+	gameshot.display();
+	gameshot.tags.forEach(function(tag){
 		//check to see if the tag has been added to the taglist
 		if(!tagList.includes(tag)){
 			//if it isn't in the list, add it
@@ -49,8 +57,8 @@ $(".filter").on("click", function(){
 	var tag = $(this).text();
 	console.log(tag)
 
-	$("." + tag).fadeIn();
-	$(".quote").not("." + tag).hide();
+	$("." + tag).show();
+	$("div > div").not("." + tag).hide();
 
 //remove class active resets the buttons to not show the styling for active button
 	$(".filter").removeClass("active")
